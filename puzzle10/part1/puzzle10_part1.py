@@ -14,25 +14,6 @@ SOLUTION_MONITOR = SolutionMonitor([17, 61])
 
 take_chip_matches = []
 
-def process_rules():
-    global end_condition_bot
-   
-    gave_any = False
-   
-    for bot_id, bot in bot_map.items():
-        result = bot.give_chips()
-        if result == True:
-            if gave_any == False:
-                gave_any = True
-
-            for downstream_bot in bot.get_downstream_bots():
-                if downstream_bot.responsible_for(END_CONDITION_LIST) == True:
-                    print "Found End Condition!!!"
-                    end_condition_bot = downstream_bot.id
-
-    if gave_any == True:
-        process_rules()
-
 def handle_take_chip(match):
     chip_value = int(match.group(1))
     bot_id = int(match.group(2))
